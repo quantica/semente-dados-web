@@ -1,0 +1,25 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# $2 contains the source of the commit message.
+# It can be message, template, merge, squash, or commit (for git commit --amend)
+if [ "$2" = "commit" ]; then
+  echo "Skipping prepare-commit-msg hook due to amend."
+  exit 0
+fi
+
+# Skip on rebase 
+if [ -n "$GIT_SEQUENCE_EDITOR" ]; then
+  echo "Skipping prepare-commit-msg hook due to rebase."
+  exit 0
+fi
+
+if [ "$2" = "message" ]; then
+  message=$(cat "$1")
+  if echo "$message" | node_modules/.bin/commitlint; then
+    echo "Commit message already valid, skipping commitlint."
+    exit 0
+  fi
+fi
+
+exec < /dev/tty && node_modules/.bin/cz --hook || true

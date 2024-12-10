@@ -1,0 +1,68 @@
+name: 🎉 Deploy to Production
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    name: Deploy to production server
+    runs-on: ubuntu-latest
+    env:
+      REACT_APP_API_URL: ${{ secrets.API_URL }}
+
+    steps:
+      - name: 🛎️ Checkout
+        uses: actions/checkout@v4
+
+      - name: 🛠️ Use Node.js 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'yarn'
+
+      - run: corepack enable
+
+      - name: 🛠️ Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: 👀 TypeScript Check
+        run: yarn tsc
+
+      - name: 📋 Run tests
+        run: yarn test
+
+      - name: 📌 Find and replace console Tag version
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          find: '#{TAG_VERSION}'
+          replace: '#TAG_VERSION: ${{  github.event.head_commit.message }}'
+          include: 'src/index.tsx'
+
+      - name: 🚀 Build
+        run: yarn build
+
+      - name: 🕵🏻 Copy file via ssh key
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          source: 'build'
+          target: '/var/sites/template-react'
+          strip_components: 1
+
+      - name: 🎉 Generate release changelog
+        id: generate_release_notes
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+
+      - name: 💬 Slack Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_CHANNEL: infra
+          SLACK_COLOR: ${{ job.status }}
+          SLACK_MESSAGE: "TEMPALTE REACT - PRODUCTION - :rocket: \n Release: ${{ steps.generate_release_notes.outputs.url }}"
+          SLACK_TITLE: https://react.quanti.ca
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_ICON: https://www.quanti.ca/assets/brand-logo.2f3253fc.svg
+          SLACK_USERNAME: Severino 🤖

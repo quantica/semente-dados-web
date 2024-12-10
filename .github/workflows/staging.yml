@@ -1,0 +1,75 @@
+name: 🙈 Deploy to staging
+# Replace this variables:
+# PROJECT_NAME
+# PROJECT_STG_URL
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Deploy to staging server
+    runs-on: ubuntu-latest
+    env:
+      REACT_APP_API_URL: ${{ secrets.STG_API_URL }}
+
+    steps:
+      - name: 🛎️ Checkout
+        uses: actions/checkout@v4
+
+      - name: 🛠️ Use Node.js 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'yarn'
+
+      - run: corepack enable
+
+      - name: 🛠️ Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: 👀 Run Test
+        run: yarn test
+
+      - name: 🔦 TypeScript Check
+        run: yarn tsc
+
+      - name: 💅🏻 Lint Check
+        run: yarn lint
+
+      - name: 📌 Find and replace console Tag version
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          find: '#{TAG_VERSION}'
+          replace: '#TAG_VERSION: ${{  github.event.head_commit.message }}'
+          include: 'src/index.tsx'
+
+      - name: 🚀 Build
+        run: yarn build
+
+      - name: 📌 Replace commit to Tag version
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          find: '#TAG_VERSION: ${{  github.event.head_commit.message }}'
+          replace: '#{TAG_VERSION}'
+          include: 'src/index.tsx'
+
+      - name: 🗳️ Automated Version Bump
+        uses: 'phips28/gh-action-bump-version@master'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag-prefix: 'v'
+
+      - name: 💬 Slack Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_CHANNEL: infra
+          SLACK_COLOR: ${{ job.status }}
+          SLACK_MESSAGE: "PROJECT_NAME - STAGING - :rocket: \n - ${{ github.event.head_commit.message }}"
+          SLACK_TITLE: PROJECT_STG_URL
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_ICON: https://www.quanti.ca/assets/brand-logo.2f3253fc.svg
+          SLACK_USERNAME: Severino 🤖
