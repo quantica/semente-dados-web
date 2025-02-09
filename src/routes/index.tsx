@@ -1,24 +1,10 @@
-import ProtectedRoute from '../components/protected-route'
-import ForgotPasswordPage from '../pages/forgotPassword'
 import { createBrowserRouter } from 'react-router-dom'
-import SignUpPage from '../pages/signup'
-import LoginPage from '../pages/login'
-import HomePage from '../pages/home'
+
 import { ROUTES } from './path'
+import HomePage from '../pages/home'
+import ProtectedRoute from '../components/ProtectedRoute'
 
 export const router = createBrowserRouter([
-  {
-    path: ROUTES.login,
-    element: <LoginPage />
-  },
-  {
-    path: ROUTES.signUp,
-    element: <SignUpPage />
-  },
-  {
-    path: ROUTES.forgotPassword,
-    element: <ForgotPasswordPage />
-  },
   {
     path: ROUTES.home,
     element: <ProtectedRoute />,
