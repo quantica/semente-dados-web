@@ -1,5 +1,4 @@
 import axios, { AxiosError } from 'axios'
-import StorageService from './storage.service'
 
 const config = {
   baseURL: process.env.REACT_APP_API_URL
@@ -9,9 +8,7 @@ const api = axios.create(config)
 
 api.interceptors.request.use(
   config => {
-    const token = StorageService.getToken()
-    if (token) config.headers.Authorization = `Bearer ${token}`
-
+    config.headers.Authorization = `Bearer ${window.accessToken}`
     return config
   },
   error => error
@@ -25,3 +22,9 @@ api.interceptors.response.use(
 )
 
 export default api
+
+declare global {
+  interface Window {
+    accessToken?: string
+  }
+}
