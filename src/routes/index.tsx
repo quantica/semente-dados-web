@@ -8,6 +8,8 @@ import BusinessesPage from '../pages/businesses'
 import ImpactsPage from '../pages/impacts'
 import TeamPage from '../pages/team'
 import ImpactDetail from '../pages/impacts/detail'
+import ProjectDetail from '../pages/projects/detail'
+import BusinessDetail from '../pages/businesses/detail'
 
 export const router = createBrowserRouter([
   {
@@ -16,7 +18,9 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <HomePage /> },
       { element: <ProjectsPage />, path: ROUTES.project },
+      { element: <ProjectDetail />, path: ROUTES.projectDetail },
       { element: <BusinessesPage />, path: ROUTES.business },
+      { element: <BusinessDetail />, path: ROUTES.businessDetail },
       { element: <ImpactsPage />, path: ROUTES.impact },
       { element: <TeamPage />, path: ROUTES.team },
       { element: <ImpactDetail />, path: ROUTES.impactDetail }

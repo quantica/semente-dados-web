@@ -21,7 +21,7 @@ const ProjectsPage = () => {
 
   return (
     <div className='flex h-full w-full flex-col'>
-      <span className='mb-5 text-4xl font-bold text-[#141414]'>Projetos</span>
+      <span className='mb-5 text-4xl font-bold text-[#141414]'>Projetos Executados</span>
       <Tab tabs={tabs} current={memberTab} handleChange={e => setSearchParams({ mt: e.key })} />
 
       <TabComponent />

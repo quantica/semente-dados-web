@@ -4,5 +4,7 @@ export const ROUTES = {
   business: '/businesses',
   impact: '/impacts',
   impactDetail: '/impacts/:id',
+  projectDetail: '/projects/:id',
+  businessDetail: '/business/:id',
   team: '/team'
 }

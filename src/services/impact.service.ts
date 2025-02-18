@@ -3,8 +3,10 @@ import { ProjectData } from '../types/project.type'
 import api from './api.service'
 
 class ImpactService {
-  static async list(filters: ListInputParams) {
-    const response = await api.get<ProjectData[]>(`/projects/impact`, { params: filters })
+  static async list(filters?: ListInputParams) {
+    const response = await api.get<ProjectData[]>(`/projects/impact`, {
+      ...(filters && { params: filters })
+    })
     return response.data
   }
 
