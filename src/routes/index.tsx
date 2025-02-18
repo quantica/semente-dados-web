@@ -3,11 +3,23 @@ import { createBrowserRouter } from 'react-router-dom'
 import { ROUTES } from './path'
 import HomePage from '../pages/home'
 import ProtectedRoute from '../components/ProtectedRoute'
+import ProjectsPage from '../pages/projects'
+import BusinessesPage from '../pages/businesses'
+import ImpactsPage from '../pages/impacts'
+import TeamPage from '../pages/team'
+import ImpactDetail from '../pages/impacts/detail'
 
 export const router = createBrowserRouter([
   {
     path: ROUTES.home,
     element: <ProtectedRoute />,
-    children: [{ index: true, element: <HomePage /> }]
+    children: [
+      { index: true, element: <HomePage /> },
+      { element: <ProjectsPage />, path: ROUTES.project },
+      { element: <BusinessesPage />, path: ROUTES.business },
+      { element: <ImpactsPage />, path: ROUTES.impact },
+      { element: <TeamPage />, path: ROUTES.team },
+      { element: <ImpactDetail />, path: ROUTES.impactDetail }
+    ]
   }
 ])

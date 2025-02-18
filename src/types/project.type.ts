@@ -1,0 +1,29 @@
+export interface ProjectData {
+  project_id?: number
+  project?: string
+  project_tag?: string
+  status?: string
+  description?: string
+  start_date?: Date
+  end_date?: Date
+  year?: number
+  business_unity?: string
+  sementer?: string
+  sementer_email?: string
+  client?: string
+  format?: string
+  city?: string
+  nps?: number
+  ivav?: number
+  isec?: number
+  impacted_entrepreneurs?: string
+  impacted_businesses?: string
+  seed_capital?: string
+  drive?: string
+  case?: string
+  technical_capacity_certificate?: string
+  client_testimony?: string
+  beneficiary_testimony?: string
+  results?: string
+  deliverables?: string
+}
