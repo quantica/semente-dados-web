@@ -53,13 +53,6 @@ jobs:
           replace: '#{TAG_VERSION}'
           include: 'src/index.tsx'
 
-      - name: 🗳️ Automated Version Bump
-        uses: 'phips28/gh-action-bump-version@master'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag-prefix: 'v'
-
       - name: 💬 Slack Notification
         uses: rtCamp/action-slack-notify@v2
         env:
