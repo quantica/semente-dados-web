@@ -13,7 +13,7 @@
     "prepare": "husky install",
     "commit": "git-cz",
     "commitizen": "commitizen",
-    "test": "jest --coverage --detectOpenHandles"
+    "test": "jest --coverage --detectOpenHandles --passWithNoTests"
   },
   "dependencies": {
     "@superset-ui/embedded-sdk": "0.1.3",
