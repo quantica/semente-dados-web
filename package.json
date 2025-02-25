@@ -1,6 +1,6 @@
 {
   "name": "qc-base-reactjs",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "private": true,
   "scripts": {
     "start": "concurrently \"npm run tailwindcss\" \"react-scripts start\"",
