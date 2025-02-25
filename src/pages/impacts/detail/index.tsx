@@ -3,6 +3,7 @@ import React from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import ImpactService from '../../../services/impact.service'
 import { Button, Icon, Loading, ProfileImage } from 'semente-js'
+import Card from '../../../components/Card'
 
 const ImpactDetail = () => {
   const { id } = useParams()
@@ -21,7 +22,7 @@ const ImpactDetail = () => {
         </div>
       ) : (
         data && (
-          <div className='flex w-full flex-col px-[10vw]'>
+          <div className='flex w-full flex-col px-[10vw] pb-24'>
             <button className='flex items-center gap-2' onClick={() => navigate(-1)}>
               <Icon name='arrow-left-alt' color='#141414' size='14' />
               <span className='text-base font-semibold'>Voltar</span>
@@ -56,6 +57,53 @@ const ImpactDetail = () => {
             </div>
 
             <span className='mt-9 text-2xl font-bold'>Nível de Impacto</span>
+            <div className='mt-4 flex gap-2'>
+              <div className='rounded-lg bg-[#F5F5F5] p-2 py-1 text-base font-normal text-[#141414]'>
+                <span>Pessoas Empreendedoras</span>
+              </div>
+              <div className='rounded-lg bg-[#F5F5F5] p-2 py-1 text-base font-normal text-[#141414]'>
+                <span>Negócios</span>
+              </div>
+              <div className='rounded-lg bg-[#F5F5F5] p-2 py-1 text-base font-normal text-[#141414]'>
+                <span>Ecossistemas</span>
+              </div>
+            </div>
+
+            <span className='mt-9 text-2xl font-bold'>Pessoas Empreendedoras</span>
+
+            <div className='mt-4 grid grid-cols-2 gap-4'>
+              <Card label='Pessoas impactadas' value='5.000' />
+              <Card label='Cidades impactadas' value='800' />
+              <Card label='Evolução do índice de aprendizagem' value='15%' />
+              <Card label='Estados impactados' value='15' />
+            </div>
+
+            <span className='mt-9 text-2xl font-bold'>Diversidade</span>
+
+            <div className='mt-4 flex w-full items-center gap-4'>
+              <Card label='Pessoas LGBT' value='50%' />
+              <Card label='Pessoas Negras' value='60%' />
+              <Card label='PcDs' value='40%' />
+              <Card label='Mulheres' value='70%' />
+            </div>
+
+            <span className='mt-9 text-2xl font-bold'>Negócios</span>
+
+            <div className='mt-4 flex w-full flex-col'>
+              <Card label='Negócios impactados' value='500' />
+
+              <div className='mt-4 flex w-full items-center gap-4'>
+                <Card label='Evolução da maturidade no Caminho Empreendedor' value='12%' />
+                <Card label='Evolução do faturamento' value='15%' />
+              </div>
+            </div>
+
+            <span className='mt-9 text-2xl font-bold'>Ecossistemas</span>
+
+            <div className='mt-4 flex w-full items-center gap-4'>
+              <Card label='Evolução da maturidade no Caminho Empreendedor' value='R$ 850.000,00' />
+              <Card label='Empregos gerados' value='18.000' />
+            </div>
           </div>
         )
       )}

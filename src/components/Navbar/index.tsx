@@ -8,8 +8,8 @@ const Navbar: React.FC = () => {
 
   return (
     <div
-      className='border-[#EBEBEB ] flex h-full w-[240px] flex-col
-border-r-[1px] py-9'
+      className='border-[#EBEBEB ] sticky top-0 z-10 flex
+h-full w-[240px] flex-col border-r-[1px] py-9'
     >
       {NavItems.map(item => {
         const isCurrent = path.pathname === item.value

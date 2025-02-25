@@ -19,7 +19,7 @@ const ProtectedRoute: React.FC = () => {
   }
 
   return (
-    <div className='flex h-screen flex-col'>
+    <div className='relative flex h-screen flex-col'>
       <ProtectedApp>
         <AnimatePresence>
           <Header
@@ -37,9 +37,9 @@ const ProtectedRoute: React.FC = () => {
             ]}
           />
 
-          <div className='flex h-full w-full'>
+          <div className='relative flex h-full w-full overflow-auto'>
             <Navbar />
-            <div className='flex h-full w-full p-8'>
+            <div className='over flex h-full w-full p-8'>
               <Outlet />
             </div>
           </div>
