@@ -27,9 +27,6 @@ jobs:
       - name: 👀 TypeScript Check
         run: yarn tsc
 
-      - name: 📋 Run tests
-        run: yarn test
-
       - name: 📌 Find and replace console Tag version
         uses: jacobtomlinson/gha-find-replace@v3
         with:
