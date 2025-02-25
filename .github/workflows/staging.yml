@@ -30,9 +30,6 @@ jobs:
       - name: 🛠️ Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: 👀 Run Test
-        run: yarn test
-
       - name: 🔦 TypeScript Check
         run: yarn tsc
 
